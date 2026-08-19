@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bitácora de Saneamiento Ambiental · Portafolio de Ingeniería</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;700;800&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --papel:#F2F5F4;
+    --carta:#FFFFFF;
+    --tinta:#10262B;
+    --tinta-suave:#4A6268;
+    --agua:#0F7A8D;
+    --agua-osc:#0B5563;
+    --agua-tinte:#E1EEF0;
+    --linea:#D3DEDD;
+    --radio:14px;
+    --display:'Archivo',sans-serif;
+    --cuerpo:'IBM Plex Sans',sans-serif;
+    --mono:'IBM Plex Mono',monospace;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:var(--cuerpo);background:var(--papel);color:var(--tinta);line-height:1.65}
+
+  /* ===== NAVEGACIÓN ===== */
+  nav{position:sticky;top:0;z-index:50;background:rgba(16,38,43,.92);backdrop-filter:blur(8px);color:#fff}
+  .nav-inner{max-width:1080px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:14px 24px}
+  .nav-logo{font-family:var(--mono);font-size:.8rem;letter-spacing:.08em;color:#9FD3DC;text-decoration:none}
+  .nav-links{display:flex;gap:22px}
+  .nav-links a{color:#fff;text-decoration:none;font-size:.9rem;font-weight:500;opacity:.85;transition:opacity .2s}
+  .nav-links a:hover,.nav-links a:focus-visible{opacity:1;text-decoration:underline;text-underline-offset:5px;text-decoration-color:var(--agua)}
+  a:focus-visible,button:focus-visible{outline:2px solid var(--agua);outline-offset:3px}
+
+  /* ===== HERO ===== */
+  header.hero{background:var(--tinta);color:#F4FAFA;position:relative;overflow:hidden}
+  .hero::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(159,211,220,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(159,211,220,.06) 1px,transparent 1px);background-size:44px 44px;pointer-events:none}
+  .hero-inner{max-width:1080px;margin:0 auto;padding:72px 24px 56px;position:relative}
+  .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:#9FD3DC;margin-bottom:18px}
+  h1{font-family:var(--display);font-weight:800;font-size:clamp(2.1rem,5.5vw,3.6rem);line-height:1.05;letter-spacing:-.01em;text-transform:uppercase;max-width:15ch}
+  h1 .agua{color:#54B8C7}
+  .hero-sub{margin-top:20px;max-width:56ch;color:#C7D9DC;font-size:1.02rem}
+  .hero-meta{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px}
+  .hero-meta span{font-family:var(--mono);font-size:.72rem;letter-spacing:.06em;border:1px solid rgba(159,211,220,.35);border-radius:999px;padding:6px 14px;color:#BFE2E7}
+
+  /* Diagrama de flujo de saneamiento (firma visual) */
+  .flujo{margin-top:48px}
+  .flujo svg{width:100%;height:auto;display:block}
+  .flujo .tramo{stroke:#54B8C7;stroke-width:2;fill:none;stroke-dasharray:600;stroke-dashoffset:600;animation:trazar 2.4s ease forwards .3s}
+  .flujo .nodo{fill:var(--tinta);stroke:#54B8C7;stroke-width:2}
+  .flujo text{font-family:var(--mono);font-size:11px;fill:#9FD3DC;letter-spacing:.08em}
+  @keyframes trazar{to{stroke-dashoffset:0}}
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    .flujo .tramo{animation:none;stroke-dashoffset:0}
+  }
+
+  /* ===== SECCIONES ===== */
+  section{max-width:1080px;margin:0 auto;padding:64px 24px 8px}
+  .sec-head{display:flex;align-items:baseline;gap:16px;border-bottom:2px solid var(--tinta);padding-bottom:12px;margin-bottom:32px}
+  .sec-head .num{font-family:var(--mono);font-size:.8rem;color:var(--agua)}
+  h2{font-family:var(--display);font-weight:800;font-size:clamp(1.4rem,3vw,1.9rem);text-transform:uppercase;letter-spacing:.01em}
+  .sec-desc{color:var(--tinta-suave);max-width:62ch;margin-bottom:32px;margin-top:-16px}
+
+  /* ===== PORTAFOLIO ===== */
+  .equipo{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:22px}
+  .tarjeta{background:var(--carta);border:1px solid var(--linea);border-radius:var(--radio);padding:26px;display:flex;flex-direction:column;gap:14px;transition:transform .2s,box-shadow .2s}
+  .tarjeta:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(16,38,43,.10)}
+  .avatar{width:58px;height:58px;border-radius:50%;background:var(--agua-tinte);color:var(--agua-osc);display:flex;align-items:center;justify-content:center;font-family:var(--display);font-weight:800;font-size:1.15rem;border:2px solid var(--agua)}
+  .tarjeta h3{font-family:var(--display);font-weight:700;font-size:1.12rem}
+  .rol{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:var(--agua-osc)}
+  .perfil{font-size:.93rem;color:var(--tinta-suave)}
+  .chips{display:flex;flex-wrap:wrap;gap:7px}
+  .chips span{font-size:.75rem;font-weight:500;background:var(--agua-tinte);color:var(--agua-osc);border-radius:999px;padding:4px 11px}
+  .enlaces{display:flex;gap:14px;margin-top:auto;padding-top:6px}
+  .enlaces a{font-family:var(--mono);font-size:.75rem;color:var(--agua);text-decoration:none;border-bottom:1px solid transparent}
+  .enlaces a:hover{border-bottom-color:var(--agua)}
+
+  /* Secciones del CV: formación y experiencia */
+  .cv-sec{border-top:1px dashed var(--linea);padding-top:14px}
+  .cv-sec h4{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--agua-osc);margin-bottom:12px}
+  .cv-item{display:grid;grid-template-columns:110px 1fr;gap:12px;margin-bottom:12px;font-size:.9rem}
+  .cv-anio{font-family:var(--mono);font-size:.72rem;color:var(--tinta-suave);padding-top:2px}
+  .cv-inst{color:var(--tinta-suave);font-size:.85rem}
+  .cv-desc{font-size:.85rem;color:var(--tinta-suave);margin-top:4px}
+  @media (max-width:560px){
+    .cv-item{grid-template-columns:1fr}
+    .cv-anio{padding-top:0}
+  }
+
+  /* ===== BITÁCORA (timeline tipo perfil hidráulico) ===== */
+  .timeline{position:relative;padding-left:44px}
+  .timeline::before{content:"";position:absolute;left:14px;top:6px;bottom:6px;width:3px;background:linear-gradient(var(--agua) 60%,rgba(15,122,141,.25));border-radius:3px}
+  .entrada{position:relative;background:var(--carta);border:1px solid var(--linea);border-radius:var(--radio);padding:26px 28px;margin-bottom:26px}
+  .entrada::before{content:"";position:absolute;left:-38px;top:28px;width:19px;height:19px;border-radius:50%;background:var(--papel);border:3px solid var(--agua);box-shadow:inset 0 0 0 3px var(--papel),inset 0 0 0 6px var(--agua-tinte)}
+  .ent-head{display:flex;flex-wrap:wrap;align-items:baseline;gap:12px;margin-bottom:6px}
+  .semana{font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;background:var(--tinta);color:#9FD3DC;border-radius:6px;padding:4px 10px}
+  .fecha{font-family:var(--mono);font-size:.75rem;color:var(--tinta-suave)}
+  .entrada h3{font-family:var(--display);font-weight:700;font-size:1.2rem;margin:6px 0 10px}
+  .temas{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px}
+  .temas span{font-family:var(--mono);font-size:.68rem;letter-spacing:.05em;border:1px solid var(--agua);color:var(--agua-osc);border-radius:999px;padding:3px 10px}
+  .entrada p{font-size:.94rem;margin-bottom:12px}
+  .entrada ul{margin:0 0 12px 20px;font-size:.94rem}
+  .entrada li{margin-bottom:6px}
+  .conceptos{border-top:1px dashed var(--linea);padding-top:12px}
+  .conceptos b{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--agua-osc)}
+
+  /* ===== FOOTER ===== */
+  footer{margin-top:72px;background:var(--tinta);color:#C7D9DC;padding:36px 24px;text-align:center;font-size:.85rem}
+  footer .mono{font-family:var(--mono);font-size:.72rem;color:#9FD3DC;display:block;margin-top:8px}
+
+  @media (max-width:560px){
+    .nav-links{gap:14px}
+    .timeline{padding-left:34px}
+    .entrada::before{left:-30px;width:15px;height:15px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="#inicio">SAN·AMB / 2026-II</a>
+    <div class="nav-links">
+      <a href="#portafolio">Portafolio</a>
+      <a href="#bitacora">Bitácora</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="inicio">
+  <div class="hero-inner">
+    <p class="eyebrow">Universidad Católica de Colombia · Principios de Saneamiento Ambiental</p>
+    <h1>Bitácora de <span class="agua">Saneamiento</span> &amp; Portafolio de Ingeniería</h1>
+    <p class="hero-sub">Centro de mando del semestre: registro técnico semana a semana de la asignatura y perfil profesional de cada integrante del equipo. Construido con apoyo de herramientas de Inteligencia Artificial.</p>
+    <div class="hero-meta">
+      <span>PREGRADO ING. CIVIL</span>
+      <span>ACTUALIZACIÓN SEMANAL</span>
+      <span>HECHO CON IA + HTML/CSS/JS</span>
+    </div>
+    <div class="flujo" aria-hidden="true">
+      <svg viewBox="0 0 900 120">
+        <path class="tramo" d="M40 60 H250 M310 60 H520 M580 60 H790"/>
+        <circle class="nodo" cx="40" cy="60" r="9"/>
+        <circle class="nodo" cx="280" cy="60" r="26"/>
+        <circle class="nodo" cx="550" cy="60" r="26"/>
+        <circle class="nodo" cx="820" cy="60" r="9"/>
+        <text x="18" y="95">CAPTACIÓN</text>
+        <text x="242" y="105">TRATAMIENTO</text>
+        <text x="512" y="105">DISTRIBUCIÓN</text>
+        <text x="790" y="95">USO</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<section id="portafolio">
+  <div class="sec-head"><span class="num">01</span><h2>Portafolio del equipo</h2></div>
+  <p class="sec-desc">Currículum profesional, orientado al ejercicio de la ingeniería civil.</p>
+  <div class="equipo" id="equipo-grid"></div>
+</section>
+
+<section id="bitacora">
+  <div class="sec-head"><span class="num">02</span><h2>Bitácora de clases</h2></div>
+  <p class="sec-desc">Resumen técnico de cada sesión de Principios de Saneamiento Ambiental, en orden cronológico inverso (la más reciente primero).</p>
+  <div class="timeline" id="timeline"></div>
+</section>
+
+<footer>
+  Plataforma de Portafolio y Bitácora · Principios de Saneamiento Ambiental · 2026
+  <span class="mono">Sitio generado con apoyo de IA (Claude) · Desplegado en GitHub Pages / Vercel</span>
+</footer>
+
+<script>
+/* ============================================================
+   ✏️ ZONA DE EDICIÓN — TODO EL CONTENIDO DEL SITIO VIVE AQUÍ
+   Para actualizar la página NO toques el HTML ni el CSS:
+   solo edita estos dos arreglos y guarda el archivo.
+   ============================================================ */
+
+/* ---------- 1. INTEGRANTES DEL EQUIPO ----------
+   Para agregar un integrante: copia un bloque { ... },
+   pégalo al final (antes del ] ) y cambia los datos.     */
+const EQUIPO = [
+  {
+    nombre: "Holman Jovanny Garzón",
+    rol: "Contador Público · Director Financiero · Estudiante de Ingeniería Civil",
+    perfil: "Contador Público titulado de la Universidad de La Salle y estudiante de pregrado en Ingeniería Civil de la Universidad Católica de Colombia. Experiencia profesional en gestión financiera y contable en empresas y consorcios de infraestructura vial y de edificaciones. Tengo amplia experiencia en flujos de caja, informes ejecutivos y estructuración tributaria. Actualmente busco integrar de manera dinámica la Contaduría Pública con la Ingeniería Civil.",
+    habilidades: ["Planeación financiera", "Flujos de caja", "NIIF", "Gestión tributaria (DIAN)", "Tesorería y liquidez", "Control interno y riesgos", "Excel avanzado", "Informes ejecutivos"],
+    formacion: [
+      { titulo: "Ingeniería Civil (en curso, 2.º semestre)", institucion: "Universidad Católica de Colombia", anio: "2026" },
+      { titulo: "Contador Público", institucion: "Universidad de La Salle", anio: "2021" },
+      { titulo: "Diplomado en NIIF para Pymes", institucion: "Politécnico Superior de Colombia", anio: "2017" },
+      { titulo: "Contabilización de Operaciones Contables y Financieras", institucion: "SENA", anio: "2014" },
+      { titulo: "Auxiliar Contable y Financiero", institucion: "CENCABO", anio: "2014" }
+    ],
+    experiencia: [
+      { cargo: "Director Financiero", empresa: "ECG Colombia SAS — Interventoría en proyectos de obras civiles", periodo: "Sept 2019 – Actualidad", descripcion: "Direccionamiento financiero, contable y tributario del grupo ECG en Colombia (7 empresas y 9 consorcios activos): presupuestos y flujos de caja, tesorería y banca, cierres bajo NIIF, planeación tributaria, control interno y liderazgo del equipo financiero." },
+      { cargo: "Analista Contable", empresa: "Key People Business Advisors SAS — Outsourcing contable", periodo: "Oct 2018 – Sept 2019", descripcion: "Análisis de estados financieros, liquidación de impuestos (retefuente, ReteICA, IVA) y liderazgo del equipo de auxiliares contables." },
+      { cargo: "Asistente Contable", empresa: "J&D Ariza SAS — Obras civiles", periodo: "Nov 2015 – Oct 2018", descripcion: "Registro contable, conciliaciones bancarias, balances de prueba y preparación de informes en Excel intermedio-avanzado." },
+      { cargo: "Asistente de Tesorería / Auxiliar Contable", empresa: "Naser Ltda — Servicios de seguridad", periodo: "May 2014 – Nov 2015", descripcion: "Tesorería, pagos a proveedores y nómina, facturación, informes de cartera y registro contable." }
+    ],
+    enlaces: [
+      { texto: "LinkedIn", url: "#" },
+      { texto: "Correo", url: "mailto:correo@ucatolica.edu.co" }
+    ]
+  }
+];
+
+/* ---------- 2. ENTRADAS DE LA BITÁCORA ----------
+   Cada semana: copia el último bloque { ... }, pégalo
+   AL FINAL de la lista y actualiza semana, fecha, título,
+   temas y resumen. El sitio las ordena solo (reciente arriba).
+   En "resumen" puedes usar HTML: <p>, <ul><li>, <b>.        */
+const BITACORA = [
+  {
+    semana: 2,
+    fecha: "2026-08-05",
+    titulo: "Conceptos de ecología necesarios para el saneamiento básico",
+    temas: ["Saneamiento ambiental", "Ecología", "Ecosistemas", "Factores bióticos y abióticos", "Biodiversidad"],
+    resumen: `
+      <p><b>¿Qué es el saneamiento?</b> Es el conjunto de acciones, infraestructuras y servicios destinados a proteger la salud humana mediante el control de los factores que pueden afectar el bienestar de las personas. Su objetivo es prevenir enfermedades y garantizar condiciones básicas de higiene. El <b>saneamiento ambiental</b> amplía este enfoque con medidas técnicas, sociales, legales y administrativas que protegen el ambiente y el equilibrio ecológico, incorporando principios de la ecología en la gestión del territorio.</p>
+      <ul>
+        <li><b>Componentes del saneamiento:</b> abastecimiento de agua potable segura y suficiente, recolección y tratamiento de aguas residuales, manejo adecuado de excretas, gestión de residuos sólidos y promoción de prácticas higiénicas. Su ausencia incrementa enfermedades infecciosas y el deterioro de los ecosistemas.</li>
+        <li><b>El saneamiento en cifras:</b> Colombia está entre los 6 países con más recursos hídricos del mundo, pero cerca de 1,5 millones de colombianos aún recurren a la defecación al aire libre. El reto no es la disponibilidad del recurso, sino la capacidad técnica y económica para garantizar el acceso universal.</li>
+        <li><b>Fundamentos de ecología:</b> la ecología estudia cómo los organismos interactúan entre sí y con su entorno. Un <b>ecosistema</b> es una comunidad de organismos que interactúan con su medio físico para autorregularse dentro de un espacio definido.</li>
+        <li><b>Niveles de organización:</b> organismo → población → comunidad → ecosistema → bioma → biosfera. También se revisaron las unidades básicas: nicho ecológico, hábitat, ecosistema, biodiversidad y biosfera.</li>
+        <li><b>Factores bióticos y abióticos:</b> los bióticos son los organismos vivos (productores, consumidores, descomponedores); los abióticos son los elementos no vivos que condicionan la vida: temperatura (organismos homeotermos y poiquilotermos), luminosidad (base de la fotosíntesis), agua y características del terreno (pendiente, orientación, composición del suelo).</li>
+        <li><b>Flujo de energía y ciclos biogeoquímicos:</b> la energía entra por los productores mediante fotosíntesis y se transfiere a través de cadenas alimenticias; los descomponedores cierran el ciclo de nutrientes. Los ciclos del agua y del carbono mantienen el equilibrio ecológico.</li>
+        <li><b>Ecosistemas naturales y artificiales:</b> los naturales (terrestres, acuáticos y mixtos) se encuentran en equilibrio; los artificiales, creados por el ser humano (como las ciudades), suelen tener menor biodiversidad y requieren más gestión para mantenerse.</li>
+        <li><b>Dinámica de poblaciones:</b> crecimiento exponencial (recursos abundantes) vs. crecimiento logístico (limitado por alimento, espacio y competencia).</li>
+        <li><b>Relaciones entre seres vivos:</b> intraespecíficas (cooperación gregaria, colonias, sociedades, familias, competencia) e interespecíficas (depredación, parasitismo, mutualismo, comensalismo, simbiosis y competencia por recursos limitados).</li>
+        <li><b>Evolución y adaptación:</b> según la teoría de Darwin, la selección natural favorece a los individuos mejor adaptados. Las adaptaciones pueden ser morfológicas (mimetismo), fisiológicas (más glóbulos rojos en mamíferos marinos) o comportamentales (cortejo).</li>
+        <li><b>Biodiversidad y servicios ecosistémicos:</b> la biodiversidad presta servicios de aprovisionamiento (alimentos, agua dulce), regulación (purificación del agua, polinización, control de erosión) y culturales. Sus principales amenazas son la deforestación, la contaminación, el cambio climático y las especies invasoras.</li>
+      </ul>
+      <p><b>Relación con la ingeniería civil:</b> la infraestructura sanitaria replica y amplifica los servicios ecosistémicos de regulación: las redes de drenaje cumplen la función de los humedales, los lodos activados imitan la descomposición bacteriana del suelo y los filtros de arena reproducen la filtración geológica de los acuíferos. Como síntesis de la sesión: <b>"el agua no proviene del grifo, proviene del ecosistema"</b> — el verdadero desarrollo sostenible exige valorar la infraestructura natural con el mismo rigor con que diseñamos los planos de ingeniería.</p>
+    `,
+    conceptos: "Saneamiento ambiental · Ecosistema · Factores bióticos y abióticos · Niveles de organización · Cadena trófica · Adaptación · Biodiversidad · Servicios ecosistémicos"
+  },
+  {
+    semana: 3,
+    fecha: "2026-08-12",
+    titulo: "Gestión ambiental de la Línea 1 del Metro de Bogotá (L1MB)",
+    temas: ["Gestión ambiental de proyectos", "Línea 1 Metro de Bogotá", "Plan de Manejo Ambiental y Social (PMAS)", "Monitoreo ambiental", "Manejo silvicultural y forestal"],
+    resumen: `
+      <p>La charla, dictada por el equipo de <b>Metro de Bogotá</b>, presentó la gestión ambiental y social que acompaña la construcción de la <b>Línea 1 del Metro de Bogotá (L1MB)</b>: un proyecto de 23,96 km, 100% en viaducto y 100% eléctrico, con 16 estaciones (10 integradas con TransMilenio) que atraviesa 9 localidades (Bosa, Kennedy, Puente Aranda, Antonio Nariño, Santa Fe, Mártires, Teusaquillo, Chapinero y Barrios Unidos) y beneficiará a 2,92 millones de habitantes, el 88% de ellos de estratos 1, 2 y 3. La sesión mostró cómo un megaproyecto de infraestructura articula estudios técnicos, contratos de concesión y estándares internacionales para prevenir, mitigar, controlar y compensar sus impactos.</p>
+      <ul>
+        <li><b>Beneficios ambientales del proyecto:</b> la L1MB ahorrará 19 millones de galones de combustibles fósiles al año y dejará de emitir cerca de 171.000 toneladas de CO2 al año (equivalentes a 12 parques Simón Bolívar arborizados, es decir 3.420.000 árboles). Contará con arquitectura bioclimática, recirculación de agua en estaciones, Sistemas Urbanos de Drenaje Sostenible (SUDS), 19 km de ciclorrutas con 9.750 cicloparqueaderos, y renovará 1.348.106 m2 de espacio público existente además de construir 94.856 m2 nuevos.</li>
+        <li><b>Modelo de gestión del proyecto:</b> Metro de Bogotá, como entidad dueña, contrata al Consorcio Consultores PMO (GCS) para el apoyo y seguimiento del proyecto, y de manera independiente al concesionario constructor (Metro Línea 1) y al Consorcio Supervisor PLMB, que ejerce la interventoría y valida el cumplimiento del concesionario.</li>
+        <li><b>Marco de salvaguardas de la banca multilateral:</b> por contar con financiación del Banco Interamericano de Desarrollo (BID), el Banco Mundial (BM) y el Banco Europeo de Inversiones (BEI), el proyecto debe cumplir 26 salvaguardas ambientales, sociales y de seguridad y salud en el trabajo (SST), entre ellas evaluación y gestión de riesgos e impactos, condiciones laborales, uso eficiente de recursos, salud y seguridad de la comunidad, reasentamiento involuntario, patrimonio cultural y participación de partes interesadas.</li>
+        <li><b>Obligaciones contractuales:</b> el Contrato de Concesión No. 163 de 2029 exige, mediante los Apéndices Técnicos 14 (Gestión Social) y 15 (Gestión Ambiental y SST), un Estudio de Impacto Ambiental y Social (EIAS) que integra el Plan de Manejo Ambiental y Social (PMAS), el Sistema de Gestión de Seguridad y Salud en el Trabajo, el Plan de Gestión de Riesgo de Desastres y el Plan de Monitoreo y Seguimiento.</li>
+        <li><b>Estructura del PMAS:</b> el concesionario Metro Línea 1 ejecuta 18 programas para el medio abiótico (materiales, residuos peligrosos y convencionales, vertimientos, pasivos ambientales, combustibles, ruido, vibraciones, emisiones atmosféricas, gases efecto invernadero, aceites usados, rondas hídricas, instalaciones temporales, aguas subterráneas, uso eficiente del agua y alojamiento de trabajadores) y 7 para el medio biótico (fauna urbana, compensación paisajística, remoción de cobertura vegetal, manejo silvicultural, Estructura Ecológica Principal, epífitas vasculares y no vasculares, y calidad visual del paisaje), cuyo cumplimiento vigila permanentemente el Consorcio Supervisor PLMB.</li>
+        <li><b>Monitoreo ambiental en fase de construcción:</b> calidad del aire (30 puntos, cada dos meses, 12 campañas), ruido ambiental (29 puntos, cada seis meses, 4 campañas), calidad de aguas superficiales y subterráneas (12 puntos cada una, cada seis meses, 4 campañas) y vibraciones y ruido estructural (33 edificaciones, cada seis meses, 4 campañas).</li>
+        <li><b>Ruido, ruido estructural y vibraciones en fase de operación:</b> se actualizó el modelo de propagación de ruido CadnaA con parámetros del sitio, considerando el peor escenario de viento, las fuentes propias del vehículo (rodadura, chirrido, frenado y aceleración) y los receptores sensibles a lo largo de los 23,9 km. Los edificios se clasificaron en 4 categorías según su distancia a las columnas del viaducto, y se establecieron límites admisibles de vibración y ruido estructural diferenciados por uso (por ejemplo, 66 VdB / 30 dB(A) en vivienda y hoteles frente a 60 VdB / 35 dB(A) en hospitales).</li>
+        <li><b>Manejo de residuos de construcción y demolición (RCD):</b> a la fecha se han generado 2.259.238,975 m3 de RCD acumulados, con un aprovechamiento de 172.483,705 m3 (7,60%) frente a una meta contractual del 30%. El Centro de Tratamiento y Aprovechamiento (CTA) reduce la disposición final de escombros, disminuye el consumo de materiales pétreos naturales y fortalece la economía circular del propio proyecto.</li>
+        <li><b>Manejo forestal, paisajismo y permisos silviculturales:</b> el diseño paisajístico, avalado por la Secretaría Distrital de Ambiente y el Jardín Botánico de Bogotá, prioriza la preservación del arbolado existente, la composición multiestrato con especies nativas y la plantación bajo el viaducto. Se estima un total de 7.702 árboles (6.280 nuevos de 68 especies y 1.422 de permanencia), 238.435 m2 de zonas verdes y 1.822,37 m2 en 289 SUDS. De las 27 resoluciones vigentes (SDA-CAR) que autorizan 5.530 tratamientos silviculturales, se han ejecutado 4.149 (75,03%), con avances desiguales entre traslados (94,83%) y talas (95,33%) frente a podas (5,88%) y conservación (0%).</li>
+      </ul>
+      <p><b>Relación con la ingeniería civil y el saneamiento ambiental:</b> la L1MB evidencia que un proyecto de infraestructura de transporte no se limita al diseño estructural y geotécnico del viaducto, sino que integra, con el mismo rigor técnico, la gestión de vertimientos, residuos, emisiones, ruido y biodiversidad exigida por estándares nacionales e internacionales. Síntesis de la sesión: <b>la gestión ambiental de un megaproyecto no es un trámite paralelo a la obra, sino un sistema de prevención, mitigación, control y compensación que debe monitorearse con la misma disciplina que el cronograma y el presupuesto.</b></p>
+    `,
+    conceptos: "Estudio de Impacto Ambiental y Social (EIAS) · Plan de Manejo Ambiental y Social (PMAS) · Salvaguardas ambientales y sociales · Interventoría · Monitoreo ambiental · Ruido y vibraciones estructurales · Manejo de RCD · Compensación forestal"
+  }
+];
+
+/* ============================================================
+   MOTOR DE RENDERIZADO — no es necesario editar de aquí abajo
+   ============================================================ */
+function iniciales(nombre){
+  return nombre.split(" ").filter(p => p[0] && p[0] === p[0].toUpperCase()).slice(0,2).map(p => p[0]).join("") || nombre.slice(0,2).toUpperCase();
+}
+function fechaLarga(iso){
+  const meses = ["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const [a,m,d] = iso.split("-").map(Number);
+  return `${d} de ${meses[m-1]} de ${a}`;
+}
+
+const grid = document.getElementById("equipo-grid");
+EQUIPO.forEach(p => {
+  const card = document.createElement("article");
+  card.className = "tarjeta";
+  const formacionHTML = p.formacion ? `
+    <div class="cv-sec">
+      <h4>Formación académica</h4>
+      ${p.formacion.map(f => `
+        <div class="cv-item">
+          <span class="cv-anio">${f.anio}</span>
+          <div><b>${f.titulo}</b><br><span class="cv-inst">${f.institucion}</span></div>
+        </div>`).join("")}
+    </div>` : "";
+  const experienciaHTML = p.experiencia ? `
+    <div class="cv-sec">
+      <h4>Experiencia laboral</h4>
+      ${p.experiencia.map(e => `
+        <div class="cv-item">
+          <span class="cv-anio">${e.periodo}</span>
+          <div><b>${e.cargo}</b><br><span class="cv-inst">${e.empresa}</span><p class="cv-desc">${e.descripcion}</p></div>
+        </div>`).join("")}
+    </div>` : "";
+  card.innerHTML = `
+    <div class="avatar">${iniciales(p.nombre)}</div>
+    <div>
+      <h3>${p.nombre}</h3>
+      <div class="rol">${p.rol}</div>
+    </div>
+    <p class="perfil">${p.perfil}</p>
+    <div class="chips">${p.habilidades.map(h => `<span>${h}</span>`).join("")}</div>
+    ${formacionHTML}
+    ${experienciaHTML}
+    <div class="enlaces">${p.enlaces.map(e => `<a href="${e.url}" target="_blank" rel="noopener">${e.texto} ↗</a>`).join("")}</div>`;
+  grid.appendChild(card);
+});
+
+const tl = document.getElementById("timeline");
+[...BITACORA].sort((a,b) => b.semana - a.semana).forEach(e => {
+  const art = document.createElement("article");
+  art.className = "entrada";
+  art.innerHTML = `
+    <div class="ent-head">
+      <span class="semana">SEMANA ${String(e.semana).padStart(2,"0")}</span>
+      <span class="fecha">${fechaLarga(e.fecha)}</span>
+    </div>
+    <h3>${e.titulo}</h3>
+    <div class="temas">${e.temas.map(t => `<span>${t}</span>`).join("")}</div>
+    ${e.resumen}
+    <div class="conceptos"><b>Conceptos clave:</b> ${e.conceptos}</div>`;
+  tl.appendChild(art);
+});
+</script>
+</body>
+</html>
